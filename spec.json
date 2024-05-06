@@ -1,0 +1,120 @@
+{
+  "$schema": "https://unpkg.com/@genome-spy/core/dist/schema.json",
+
+  "genome": {
+    "name": "hg38"
+  },
+
+  "specId": "GenomeSpy paper example",
+
+  "bookmarks": {
+    "remote": {
+      "url": "tour.json",
+      "tour": true
+    }
+  },
+
+  "description": ["Example Data, Cohort for the GenomeSpy Paper"],
+
+  "spacing": 7,
+
+  "vconcat": [
+    {
+      "import": { "url": "cytobands.json" }
+    },
+
+    {
+      "name": "blacklist-tracks",
+      "title": "Blacklist tracks",
+      "spacing": 3,
+      "visible": false,
+
+      "vconcat": [
+        { "import": { "url": "hg38-blacklist.v2.json" } },
+        { "import": { "url": "decider-cnv-blacklist.json" } }
+      ]
+    },
+
+    {
+      "name": "samples",
+      "title": "DECIDER samples",
+
+      "stickySummaries": true,
+
+      "samples": {
+        "data": {
+          "url": "decider-data/samples.tsv",
+          "format": { "type": "tsv" }
+        },
+        "attributes": {
+          "sampleTime": {
+            "type": "ordinal",
+            "scale": {
+              "domain": ["primary", "interval", "relapse"],
+              "range": ["#facf5a", "#f95959", "#455d7a"]
+            }
+          },
+          "diagnosis": {
+            "type": "nominal"
+          },
+          "ploidy": {
+            "type": "quantitative",
+            "scale": {
+              "scheme": "yellowgreenblue"
+            }
+          },
+          "purity": {
+            "type": "quantitative",
+            "scale": {
+              "domain": [0, 1],
+              "scheme": "yellowgreenblue"
+            }
+          },
+          "sig_HRD": {
+            "type": "quantitative",
+            "scale": {
+              "scheme": "yelloworangered"
+            }
+          },
+          "sig_APOBEC": {
+            "type": "quantitative",
+            "scale": {
+              "scheme": "yelloworangered"
+            }
+          },
+          "mutations": {
+            "type": "quantitative",
+            "scale": {
+              "domain": [0, 60000],
+              "scheme": "lightorange"
+            }
+          },
+          "breaks": {
+            "type": "quantitative",
+            "scale": {
+              "scheme": "lightorange"
+            },
+            "barScale": {},
+            "width": 20
+          }
+        }
+      },
+
+      "spec": {
+        "title": "Genomic data",
+
+        "resolve": {
+          "scale": { "color": "independent", "fill": "independent" }
+        },
+
+        "layer": [
+          { "import": { "url": "cnv-segments.json" } },
+          { "import": { "url": "short-variants.json" } }
+        ]
+      }
+    },
+
+    { "import": { "url": "refSeq-genes.json" } },
+    { "import": { "url": "platinum-resistance.json" } }
+  ]
+}

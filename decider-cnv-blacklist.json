@@ -1,0 +1,25 @@
+{
+  "name": "decider-blacklist",
+
+  "title": {
+    "text": "DECIDER Blacklist",
+    "style": "track-title"
+  },
+
+  "description": "Commonly occurring alignment errors and possible germ-line CNVs in the DECIDER cohort.",
+
+  "height": 12,
+
+  "data": { "url": "decider-data/decider-cnv-blacklist-v1.tsv" },
+
+  "mark": {
+    "type": "rect",
+    "minOpacity": 0.15,
+    "color": "black"
+  },
+
+  "encoding": {
+    "x": { "chrom": "chr", "pos": "startpos", "type": "locus", "axis": null },
+    "x2": { "chrom": "chr", "pos": "endpos" }
+  }
+}

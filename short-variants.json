@@ -1,0 +1,134 @@
+{
+  "$schema": "https://unpkg.com/@genome-spy/core/dist/schema.json",
+
+  "title": "Short variants",
+  "name": "mutations",
+
+  "baseUrl": "decider-data/",
+
+  "configurableVisibility": true,
+
+  "params": [
+    {
+      "name": "minPointDiameter",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": 0.0,
+        "max": 10,
+        "name": "Minimum point diameter",
+        "description": "Specifies how small the variants can become when squeezed in the bird's-eye-view."
+      }
+    },
+    {
+      "name": "semanticZoomSlider",
+      "value": 0.015,
+      "bind": {
+        "input": "range",
+        "min": 0.0,
+        "max": 0.15,
+        "step": 0.001,
+        "name": "Semantic zoom fraction",
+        "description": "The portion of mutations to show at each zoom level. Only those with the highest CADD score are shown."
+      }
+    }
+  ],
+
+  "mark": {
+    "type": "point",
+    "stroke": "black",
+    "fillGradientStrength": 0.3,
+    "semanticZoomFraction": { "expr": "semanticZoomSlider" }
+  },
+
+  "data": {
+    "url": ["patient1.tsv", "patient2.tsv", "patient3.tsv"],
+    "format": {
+      "type": "tsv",
+      "parse": {
+        "POS": "number",
+        "CADD_phred": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "type": "regexFold",
+      "columnRegex": "^(.*)\\.AF$",
+      "asValue": "VAF",
+      "asKey": "sample"
+    },
+    { "type": "formula", "expr": "+datum.VAF", "as": "VAF" },
+    { "type": "filter", "expr": "datum.VAF >= 0.02" }
+  ],
+  "encoding": {
+    "sample": { "field": "sample" },
+    "x": {
+      "chrom": "CHROM",
+      "pos": "POS",
+      "type": "locus",
+      "offset": 1
+    },
+    "color": {
+      "type": "nominal",
+      "field": "Func",
+      "scale": {
+        "domain": [
+          "stopgain",
+          "stoploss",
+          "frameshift_indel",
+          "missense",
+          "splicing",
+          "inframe_indel",
+          "synonymous",
+          "genic_other",
+          "ncRNA",
+          "intergenic"
+        ],
+        "range": [
+          "#e31a1c",
+          "#ff7f00",
+          "#6a3d9a",
+          "#1f78b4",
+          "#b2df8a",
+          "#cab2d6",
+          "#33a02c",
+          "#a6cee3",
+          "#fdbf6f",
+          "#c0c0c0"
+        ]
+      }
+    },
+    "size": {
+      "field": "VAF",
+      "type": "quantitative",
+      "scale": {
+        "domain": [0, 1],
+
+        "range": [
+          { "expr": "0" },
+          {
+            "expr": "clamp(pow(height * 0.64, 2), pow(minPointDiameter, 2), 350)"
+          }
+        ]
+      }
+    },
+    "shape": {
+      "expr": "datum.FILTER == 'PASS'",
+      "type": "nominal",
+      "scale": {
+        "domain": [true, false],
+        "range": ["circle", "cross"]
+      }
+    },
+    "semanticScore": {
+      "field": "CADD_phred"
+    },
+    "strokeOpacity": {
+      "value": 0.65
+    },
+    "strokeWidth": {
+      "value": 0.8
+    }
+  }
+}

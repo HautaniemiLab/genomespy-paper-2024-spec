@@ -1,0 +1,190 @@
+[
+  {
+    "name": "Welcome to GenomeSpy",
+    "timestamp": 1655110442725,
+    "actions": [
+      {
+        "type": "sampleView/filterByNominal",
+        "payload": {
+          "attribute": {
+            "type": "SAMPLE_ATTRIBUTE",
+            "specifier": "patient"
+          },
+          "values": ["patient2"]
+        }
+      }
+    ],
+    "scaleDomains": {
+      "x_at_root": [
+        {
+          "chrom": "chr6",
+          "pos": 77130790
+        },
+        {
+          "chrom": "chr10",
+          "pos": 4242519
+        }
+      ]
+    },
+    "viewSettings": {
+      "visibilities": {
+        "cnv-g-score-summary": false
+      }
+    },
+    "notes": "Welcome to a tour that introduces you to GenomeSpy and [DECIDER](https://www.deciderproject.eu/) data (Multi-layer Data to Improve Diagnosis, Predict Therapy Resistance and Suggest Targeted Therapies in HGSOC; ClinicalTrials.gov identifier: NCT04846933). This dataset has been compiled for \"Deciphering Cancer Genomes with GenomeSpy: A Grammar-Based Visualization Toolkit\" by Lavikka, et al. (2024).\n\n![Encoding](tour/encoding.svg)\n\nThis visualization displays segmented *copy-number* data and somatic *short variants* for multiple samples. Segments' colors encode copy-number LogR values. Heights of the gray, overlaying rectangles encode loss of heterozygosity, which is derived from B-allele frequency using the formula: LOH = abs(BAF − 0.5) × 2. Points represent somatic short variants (SNPs and indels). Their size encodes variant-allele frequency, and color encodes functional category. A tooltip reveals the exact values of all variables in the underlying dataset. Try to move your mouse cursor over the data!"
+  },
+  {
+    "name": "Navigating around the genome",
+    "timestamp": 1655110442725,
+    "actions": [
+      {
+        "type": "sampleView/filterByNominal",
+        "payload": {
+          "attribute": {
+            "type": "SAMPLE_ATTRIBUTE",
+            "specifier": "patient"
+          },
+          "values": ["patient2"]
+        }
+      }
+    ],
+    "scaleDomains": {
+      "x_at_root": [
+        {
+          "chrom": "chr6",
+          "pos": 77130790
+        },
+        {
+          "chrom": "chr10",
+          "pos": 4242519
+        }
+      ]
+    },
+    "viewSettings": {
+      "visibilities": {
+        "cnv-g-score-summary": false
+      }
+    },
+    "notes": "You can navigate along the genome by dragging or by using a touchpad. To zoom, use the mouse wheel or scroll the touchpad up/down using two fingers.\n\n![Using mouse or touchpad](tour/scroll-and-zoom.svg)\n\n**Semantic zooming**\n\nThe short variants have been scored using CADD ([Kircher et al., 2014](https://doi.org/10.1038/ng.2892)). An approximately constant number of variants are visible at all zoom levels because their filtering threshold updates as you zoom in and out. This data set includes all variants that are pathogenic acording to ClinVar ([Landrum et al., 2018](https://doi.org/10.1093/nar/gkx1153)) or that have CADD at least 10.0."
+  },
+  {
+    "name": "TP53 and LOH in chr17",
+    "notes": "This view includes one representative sample (the one with the highest tumor purity) from each patient. A bird's eye view that shows all samples at the same time enables the perception of large-scale patterns in the data. To open a closeup view for closer inspection of individual samples, use a context menu (right mouse button) or the **E** key on the keyboard. Alternatively, you can filter the dataset by opening the context menu on the genomic or metadata panels.\n\nThe chromosome 17 plays an important role in HGSC, as it contains *TP53* and other tumor suppressor genes. Our data shows extensive LOH on chr17 (the gray overlay), indicating that all but a few patients have lost the other copy of the chromosome 17 in an early phase of the disease, likely through nondisjunction during anaphase. One of these outliers has multiple *TP53* mutations likely disabling both wild-type alleles an thus, enabling progression to HGSC despite retained heterozygosity. Diagnosis of the remaining outliers were changed into non-HGSC after a review by a histological pathologist.",
+    "timestamp": 1672667814861,
+    "actions": [
+      {
+        "type": "sampleView/filterByQuantitative",
+        "payload": {
+          "attribute": {
+            "type": "SAMPLE_ATTRIBUTE",
+            "specifier": "purity"
+          },
+          "operator": "gte",
+          "operand": 0.15
+        }
+      },
+      {
+        "type": "sampleView/sortBy",
+        "payload": {
+          "attribute": {
+            "type": "SAMPLE_ATTRIBUTE",
+            "specifier": "purity"
+          }
+        }
+      },
+      {
+        "type": "sampleView/retainFirstOfEach",
+        "payload": {
+          "attribute": {
+            "type": "SAMPLE_ATTRIBUTE",
+            "specifier": "patient"
+          }
+        }
+      }
+    ],
+    "scaleDomains": {
+      "x_at_root": [
+        {
+          "chrom": "chr16",
+          "pos": 76651758
+        },
+        {
+          "chrom": "chr20",
+          "pos": 42190723
+        }
+      ]
+    },
+    "viewSettings": {
+      "visibilities": {
+        "sample-metadata": false,
+        "platinum-resistance-genes": false
+      }
+    }
+  },
+  {
+    "name": "Copy-number landscape",
+    "notes": "A summary of the highest purity samples from all HGSC patients reveals a typical HGSC CNA landscape with prominent peaks around common HGSC driver genes ([Bell et al., 2011](https://doi.org/10.1038/nature10166)), such as *MECOM*, *MYC*, *KRAS*, and *CCNE1*. The G score is calculated as the total magnitude of aberrations (logR) across the genome ([Beroukhim et al., 2007](https://doi.org/10.1073/pnas.0710052104)).",
+    "timestamp": 1671459687285,
+    "actions": [
+      {
+        "type": "sampleView/filterByQuantitative",
+        "payload": {
+          "attribute": {
+            "type": "SAMPLE_ATTRIBUTE",
+            "specifier": "purity"
+          },
+          "operator": "gte",
+          "operand": 0.15
+        }
+      },
+      {
+        "type": "sampleView/sortBy",
+        "payload": {
+          "attribute": {
+            "type": "SAMPLE_ATTRIBUTE",
+            "specifier": "purity"
+          }
+        }
+      },
+      {
+        "type": "sampleView/retainFirstOfEach",
+        "payload": {
+          "attribute": {
+            "type": "SAMPLE_ATTRIBUTE",
+            "specifier": "patient"
+          }
+        }
+      },
+      {
+        "type": "sampleView/filterByNominal",
+        "payload": {
+          "attribute": {
+            "type": "SAMPLE_ATTRIBUTE",
+            "specifier": "diagnosis"
+          },
+          "values": ["high grade serous"]
+        }
+      }
+    ],
+    "scaleDomains": {
+      "x_at_root": [
+        {
+          "chrom": "chr1",
+          "pos": 0
+        },
+        {
+          "chrom": "chrM",
+          "pos": 16569
+        }
+      ]
+    },
+    "viewSettings": {
+      "visibilities": {
+        "cnv-g-score-summary": true,
+        "sample-metadata": false,
+        "mutations": false,
+        "LOH": false
+      }
+    }
+  }
+]
