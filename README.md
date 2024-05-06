@@ -375,7 +375,7 @@ platinum resistance in cancer", introduced in [Huang et al.
 
 The data are stored in the [`platinum_resistance.tsv`](platinum_resistance.tsv)
 
-### License
+## License
 
 The visualization specification is public domain under the [CC0 1.0 Universal
 (CC0 1.0) Public Domain
