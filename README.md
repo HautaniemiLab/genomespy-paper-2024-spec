@@ -34,7 +34,7 @@ You can alternatively access, explore, and modify the visualization locally:
 3. Open the visualization in a web browser by navigating to
    [http://localhost:8000](http://localhost:8000).
 
-## DECIDER Samples
+## DECIDER Sample Data
 
 The [`index.html`](index.html) file loads the GenomeSpy App JavaScript bundle
 and initializes the visualization with the specification in the
